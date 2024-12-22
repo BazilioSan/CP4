@@ -32,6 +32,7 @@ from newsletter.views import (MainPage,
                               NewsletterDeleteView,
                               NewsletterUpdateView,
                               NewsletterCreateView,
+                              AttemptListView,
                               )
 
 
@@ -56,4 +57,6 @@ path('', MainPage.as_view(), name='main_page'),
     path('newsletter/newsletter_delete/<int:pk>/', NewsletterDeleteView.as_view(), name='newsletter_delete'),
     path('newsletter/newsletter_update/<int:pk>/', NewsletterUpdateView.as_view(), name='newsletter_update'),
     path('newsletter/newsletter_detail/<int:pk>/', NewsletterDetailView.as_view(), name='newsletter_detail'),
+
+    path('newsletter/attempt_list/', AttemptListView.as_view(), name='attempt_list'),
 ]

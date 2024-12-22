@@ -4,12 +4,20 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 # Create your views here.
-from newsletter.models import Recipient, Message, NewsLetter
+from newsletter.models import Recipient, Message, NewsLetter, Attempt
 from newsletter.forms import RecipientForm, MessageForm, NewsletterForm
 
 
 class MainPage(TemplateView):
+    models = [Recipient, NewsLetter]
     template_name = 'newsletter/main_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recipient_all'] = Recipient.objects.all()
+        context['newsletter_all'] = NewsLetter.objects.all()
+        context['newsletter_active'] = NewsLetter.objects.filter(status=NewsLetter.START)
+        return context
 
 # Контроллеры CRUD для получателей ---------------------------------
 class RecipientListView(ListView):
@@ -75,3 +83,6 @@ class NewsletterDeleteView(DeleteView):
     model = NewsLetter
     fields = ('message', 'recipient')
     success_url = reverse_lazy('newsletter:newsletter_list')
+
+class AttemptListView(ListView):
+    model = Attempt

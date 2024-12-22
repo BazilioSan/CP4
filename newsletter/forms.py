@@ -14,14 +14,14 @@ class StyleForm:
                 field.widget.attrs["class"] = "form-control"
 
 
-class RecipientForm(ModelForm):
+class RecipientForm(StyleForm, ModelForm):
 
     class Meta:
         model = Recipient
         fields = '__all__'
 
 
-class MessageForm(ModelForm):
+class MessageForm(StyleForm, ModelForm):
 
     class Meta:
         model = Message

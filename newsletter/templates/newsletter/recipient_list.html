@@ -23,14 +23,18 @@
                         <li>- {{ recipient.comment }}</li>
                     </ul>
                     <a class="btn btn-lg btn-block btn-outline-primary"
-                       href="{% url 'newsletter:recipient_detail' recipient.pk %}">Инофрмация</a>
+                       href="{% url 'newsletter:recipient_detail' recipient.pk %}">Информация</a>
+                    {% if recipient.owner == user %}
                     <a class="btn btn-lg btn-block btn-outline-primary"
                        href="{% url 'newsletter:recipient_update' recipient.pk %}">Редактировать</a>
                     <a class="btn btn-lg btn-block btn-outline-primary"
                        href="{% url 'newsletter:recipient_delete' recipient.pk %}">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+
+{% endblock %}

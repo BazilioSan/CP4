@@ -23,7 +23,7 @@ class NewsLetterAdmin(admin.ModelAdmin):
     search_fields = ('status', 'message')
 
 @admin.register(Attempt)
-class NewsLetterAdmin(admin.ModelAdmin):
-    list_display = ('id', 'date_of_attempt', 'status', 'mail_server_response', 'newsletter')
-    list_filter = ('status', 'newsletter')
-    search_fields = ('status', 'newsletter')
+class AttemptAdmin(admin.ModelAdmin):
+    list_display = ('date_of_attempt', 'status', 'mail_server_response', 'newsletter')
+    # list_filter = ('status', 'newsletter')
+    # search_fields = ('status', 'newsletter')

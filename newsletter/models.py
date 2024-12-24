@@ -1,5 +1,8 @@
 from django.db import models
 
+from users.models import User
+
+
 # Модель «Получатель рассылки»
 class Recipient(models.Model):
     email = models.EmailField(unique=True, verbose_name="Email", help_text="Введите Email")
@@ -19,12 +22,23 @@ class Recipient(models.Model):
 class Message(models.Model):
     head = models.CharField(max_length=255, verbose_name='Тема письма', help_text='Введите тему письма')
     body = models.TextField(verbose_name='Сообщение', help_text='Введите сообщение')
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Владелец",
+        related_name="messages",
+        blank=True,
+        null=True,
+    )
+
     def __str__(self):
         return self.head
+
     class Meta:
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'
         ordering = ['head']
+        permissions = [("can_stop_newsletter", "can stop newsletter")]
 
 
 # Модель «Рассылка»
@@ -51,16 +65,26 @@ class NewsLetter(models.Model):
 
 # Модель «Попытка рассылки»
 class Attempt(models.Model):
+
     STATUS_CHOICES = (
         ('SUCCESS', 'Успешно'), ('NOT_SUCCESS', 'Не успешно')
     )
+
     date_of_attempt = models.DateTimeField(auto_now=True, verbose_name='Дата и время попытки рассылки')
     status = models.CharField(choices=STATUS_CHOICES, default='SUCCESS', verbose_name='Статус попытки рассылки')
     mail_server_response = models.TextField(verbose_name='Ответ почтового сервера')
     newsletter = models.ForeignKey(NewsLetter, on_delete=models.CASCADE, verbose_name='Рассылка')
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Владелец",
+        related_name="attempts",
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
-        return self.newsletter, self.mail_server_response, self.status
+        return f"{self.newsletter.message}, {self.mail_server_response}, {self.status}"
 
     class Meta:
         verbose_name = 'Попытка рассылки'

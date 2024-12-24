@@ -19,6 +19,7 @@ class RecipientForm(StyleForm, ModelForm):
     class Meta:
         model = Recipient
         fields = '__all__'
+        exclude = ["owner"]
 
 
 class MessageForm(StyleForm, ModelForm):
@@ -26,9 +27,11 @@ class MessageForm(StyleForm, ModelForm):
     class Meta:
         model = Message
         fields = '__all__'
+        exclude = ["owner"]
 
 class NewsletterForm(StyleForm, ModelForm):
 
     class Meta:
         model = NewsLetter
         fields = ['message', 'recipient']
+        exclude = ["owner", "status"]

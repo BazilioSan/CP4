@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'newsletter',
     'users',
-    'django_extensions',
+    # 'django_extensions',
 ]
 
 MIDDLEWARE = [

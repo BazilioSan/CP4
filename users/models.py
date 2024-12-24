@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager as DefaultUserManager
 from django.db import models
 
 class User(AbstractUser):
@@ -25,6 +25,9 @@ class User(AbstractUser):
         help_text="Укажите вашу страну",
     )
     token = models.CharField(max_length=100, blank=True, null=True, verbose_name="Токен пользователя")
+
+    # objects = UserManager()
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 

@@ -1,5 +1,6 @@
 {% extends 'newsletter/base.html' %}
-{% block title %}Редактирование пользователя{% endblock %}
+
+{% block title %}Редактирование профиля{% endblock %}
 
 {% block content %}
 
@@ -18,7 +19,6 @@
                         </button>
                         <a class="btn btn-outline-primary" href="{% url 'users:user_profile' user.pk %}">Отмена</a>
                     </div>
-
                 </div>
             </form>
         </div>

@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group, Permission
 
 class Command(BaseCommand):
     """Команда для создания группы Менеджеров через консоль"""
+
     def handle(self, *args, **options):
         managers = Group.objects.create(name="managers")
         view_users = Permission.objects.get(codename="view_user")

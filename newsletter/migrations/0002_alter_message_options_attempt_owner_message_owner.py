@@ -8,23 +8,42 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('newsletter', '0001_initial'),
+        ("newsletter", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='message',
-            options={'ordering': ['head'], 'permissions': [('can_stop_newsletter', 'can stop newsletter')], 'verbose_name': 'Сообщение', 'verbose_name_plural': 'Сообщения'},
+            name="message",
+            options={
+                "ordering": ["head"],
+                "permissions": [("can_stop_newsletter", "can stop newsletter")],
+                "verbose_name": "Сообщение",
+                "verbose_name_plural": "Сообщения",
+            },
         ),
         migrations.AddField(
-            model_name='attempt',
-            name='owner',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='attempts', to=settings.AUTH_USER_MODEL, verbose_name='Владелец'),
+            model_name="attempt",
+            name="owner",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="attempts",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Владелец",
+            ),
         ),
         migrations.AddField(
-            model_name='message',
-            name='owner',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='messages', to=settings.AUTH_USER_MODEL, verbose_name='Владелец'),
+            model_name="message",
+            name="owner",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="messages",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Владелец",
+            ),
         ),
     ]

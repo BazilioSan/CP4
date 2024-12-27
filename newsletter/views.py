@@ -36,7 +36,9 @@ class MainPage(TemplateView):
         context = super().get_context_data(**kwargs)
         context["recipient_all"] = Recipient.objects.all()
         context["newsletter_all"] = NewsLetter.objects.all()
-        context["newsletter_active"] = NewsLetter.objects.filter(status=NewsLetter.START)
+        context["newsletter_active"] = NewsLetter.objects.filter(
+            status=NewsLetter.START
+        )
         return context
 
 
@@ -80,7 +82,9 @@ class RecipientUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return HttpResponseForbidden("У вас нет на это прав")
 
     def get_success_url(self):
-        return reverse_lazy("newsletter:recipient_detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy(
+            "newsletter:recipient_detail", kwargs={"pk": self.object.pk}
+        )
 
 
 class RecipientDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -194,7 +198,9 @@ class NewsletterUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return HttpResponseForbidden("У вас нет на это прав")
 
     def get_success_url(self):
-        return reverse_lazy("newsletter:newsletter_detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy(
+            "newsletter:newsletter_detail", kwargs={"pk": self.object.pk}
+        )
 
 
 class NewsletterDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -235,7 +241,10 @@ def finish_newsletter(request, pk):
 
     newsletter = NewsLetter.objects.get(pk=pk)
     user = User.objects.get(id=request.user.id)
-    if not request.user.has_perm("newsletter.can_stop_newsletter") and newsletter.owner != user:
+    if (
+        not request.user.has_perm("newsletter.can_stop_newsletter")
+        and newsletter.owner != user
+    ):
         return HttpResponseForbidden("У вас нет на это прав")
     newsletter.status = NewsLetter.END
     newsletter.date_of_end_shipment = datetime.now()

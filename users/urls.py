@@ -1,4 +1,3 @@
-
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 from django.views.decorators.cache import cache_page
@@ -37,11 +36,17 @@ urlpatterns = [
     ),
     path(
         "users/<int:pk>/user_profile/",
-        cache_page(10)(UserProfileView.as_view(template_name="users/user_profile.html")),
+        cache_page(10)(
+            UserProfileView.as_view(template_name="users/user_profile.html")
+        ),
         name="user_profile",
     ),
     path("ban_user/<int:pk>/", BanUserView.as_view(), name="ban_user"),
     path("unban_user/<int:pk>/", UnbanUserView.as_view(), name="unban_user"),
     path("password-reset/", UserForgotPasswordView.as_view(), name="password_reset"),
-    path("set-new-password/<uidb64>/<token>/", UserPasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path(
+        "set-new-password/<uidb64>/<token>/",
+        UserPasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
 ]

@@ -8,6 +8,14 @@ class Recipient(models.Model):
     email = models.EmailField(unique=True, verbose_name="Email", help_text="Введите Email")
     name = models.CharField(max_length=100, verbose_name="Фамилия Имя Отчество", help_text='Введите Ф.И.О.')
     comment = models.TextField(verbose_name='Комментарий', blank=True, null=True, help_text='Введите комментарий')
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Владелец",
+        related_name="recipients",
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.name
@@ -58,6 +66,7 @@ class NewsLetter(models.Model):
     recipient = models.ManyToManyField(Recipient, verbose_name='Получатель')
     def __str__(self):
         return self.status
+
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'

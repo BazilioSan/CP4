@@ -86,6 +86,15 @@ class NewsLetter(models.Model):
     )
     recipient = models.ManyToManyField(Recipient, verbose_name="Получатель")
 
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Владелец",
+        related_name="newsletters",
+        blank=True,
+        null=True,
+    )
+
     def __str__(self):
         return self.status
 
